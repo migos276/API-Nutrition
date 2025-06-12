@@ -90,7 +90,7 @@ class DatabaseDAO:
                     user_id INTEGER,
                     week_start_date DATE,
                     day_of_week INTEGER CHECK(day_of_week >= 0 AND day_of_week <= 6),
-                    meal_type TEXT CHECK(meal_type IN ('breakfast', 'lunch', 'dinner', 'snack')),
+                    meal_type TEXT NOT NULL,
                     food_id INTEGER,
                     planned_quantity REAL,
                     FOREIGN KEY (user_id) REFERENCES users (id),
@@ -1145,7 +1145,7 @@ def get_food_risk_score(user_id, food_id):
 
 # Module de planification hebdomadaire
 @app.route('/api/users/<int:user_id>/weekly-plan', methods=['POST'])
-def create_weekly_plan():
+def create_weekly_plan(user_id):
     """Créer un plan alimentaire hebdomadaire"""
     data = request.get_json()
     user_id = int(request.view_args['user_id'])

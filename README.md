@@ -69,19 +69,15 @@ pip install flask flask-cors requests pillow
 ```
 allergy-detection-api/
 ├── app.py                 # API principale
-├── dao/
-│   ├── db_dao.py         # Gestion base de données
-│   ├── user_dao.py       # DAO utilisateurs
-│   ├── food_dao.py       # DAO aliments
-│   ├── meal_dao.py       # DAO repas
-│   └── symptom_dao.py    # DAO symptômes
-├── services/
-│   ├── allergy_engine.py # Moteur de détection
-│   └── image_manager.py  # Gestion des images
-├── data/
-│   └── cameroon_foods.py # Données aliments camerounais
-├── media/                # Dossier des images
-└── database.db          # Base de données SQLite
+│   # Gestion base de données
+│   # DAO utilisateurs
+│   # DAO aliments
+│   # DAO repas
+│   # DAO symptômes
+│   # Moteur de détection
+│   # Gestion des images
+├── media                 # Dossier des images
+└── allergy_detection.db           # Base de données SQLite
 ```
 
 ## ⚙️ Configuration
@@ -92,7 +88,7 @@ allergy-detection-api/
 # Optionnel - Configuration par défaut dans le code
 FLASK_ENV=development
 FLASK_DEBUG=True
-DATABASE_PATH=database.db
+DATABASE_PATH=allergy_detection.db
 MEDIA_FOLDER=media
 ```
 
@@ -633,6 +629,11 @@ BUFFET_ID = (à définir après création)
 
 ### 7.1 Création d'un plan hebdomadaire
 **POST** `{{BASE_URL}}/api/users/{{USER_ID}}/weekly-plan`
+`#meal type autorise - utilisez les valeurs anglaises
+meal_type = "breakfast"
+meal_type = "lunch" 
+meal_type = "dinner"
+meal_type = "snack"`
 
 **Body (JSON) :**
 ```json
@@ -641,19 +642,19 @@ BUFFET_ID = (à définir après création)
   "meals": [
     {
       "day_of_week": 1,
-      "meal_type": "petit-déjeuner",
+      "meal_type": "breakfast",
       "food_id": 15,
       "planned_quantity": 1
     },
     {
       "day_of_week": 1,
-      "meal_type": "déjeuner",
+      "meal_type": "lunch",
       "food_id": 2,
       "planned_quantity": 1
     },
     {
       "day_of_week": 2,
-      "meal_type": "petit-déjeuner",
+      "meal_type": "snack",
       "food_id": 15,
       "planned_quantity": 1
     }
