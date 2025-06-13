@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  # Application Flask avec SQLite
+  web:
+    build: .
+    container_name: food_api
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+      - DATABASE_PATH=/app/data/allergie_detection.db
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - sqlite_data:/app/data  # Volume pour persister la base SQLite
+    networks:
+      - food_network
+    restart: unless-stopped
+    # AJOUT DE LA COMMANDE DE DÉMARRAGE
+    command: python -m flask run --host=0.0.0.0 --port=5000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  sqlite_data:
+    driver: local
+
+networks:
+  food_network:
+    driver: bridge
