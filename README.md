@@ -105,7 +105,7 @@ POST /api/init-data
 ### Démarrage du serveur
 
 ```bash
-python app.py
+docker-compose up
 ```
 
 L'API sera accessible sur `http://localhost:5000`
